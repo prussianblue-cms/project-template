@@ -1,0 +1,12 @@
+# Ignore OSX index files
+.DS_store
+
+# Ignore Vim temp files
+*.swp
+*.swo
+
+.editorconfig
+composer.lock
+vendor
+web
+.gitattributes
