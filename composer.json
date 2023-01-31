@@ -12,6 +12,10 @@
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/prussianblue-cms/freeform.git"
         }
     ],
     "require": {
@@ -31,7 +35,8 @@
         "drupal/smtp": "^1.2",
         "drupal/twig_tweak": "^3.2",
         "drupal/url_embed": "^2.0@alpha",
-        "drush/drush": "^11.4"
+        "drush/drush": "^11.4",
+        "prussianblue-cms/freeform": "dev-main"
     },
     "conflict": {
         "drupal/drupal": "*"
