@@ -20,6 +20,10 @@
         {
             "type": "git",
             "url": "https://github.com/prussianblue-cms/prussianblue-builder.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/prussianblue-cms/prussianblue-base-theme.git"
         }
     ],
     "require": {
@@ -42,6 +46,7 @@
         "drupal/url_embed": "^2.0@alpha",
         "drush/drush": "^11.4",
         "prussianblue-cms/freeform": "^0.1.0",
+        "prussianblue-cms/prussianblue_base": "dev-main",
         "prussianblue-cms/prussianblue_builder": "dev-main"
     },
     "conflict": {
