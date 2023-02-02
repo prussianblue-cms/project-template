@@ -1,0 +1,112 @@
+#!/bin/zsh
+
+# Let the user know what is going to happen and what is expected
+echo ""
+echo "This command is a helper to apply configuration changes in modules."
+echo ""
+echo "For this process to work, two conditions must be met:"
+echo "-- The config/reference directory exists and is the reference configuration, as exported by a fresh install of the project. Run pb-config-refresh-reference to generate it."
+echo "-- The configuration you want to end up in the module is already exported to ../config/sync"
+
+MODULE_PATH=$1 #  $1 is the argument provided, and it should include the path relative to the project root
+WORK_DIR="_config-update"
+PATCHES_DIR="${WORK_DIR}/patches"
+NEW_FILES_DIR="${WORK_DIR}/new-configuration-files"
+CONFIG_REFERENCE_DIR='config/reference'
+CONFIG_WIP_DIR='config/sync'
+
+# Refuse to work if the WIP or reference directories do not exist
+if [[ ! -d $CONFIG_REFERENCE_DIR || ! -d $CONFIG_WIP_DIR  ]]
+then
+  echo ""
+  echo "*************************************"
+  echo "Either the reference configuration (config/reference) or the WIP config (config/sync) directories do not exist. Export the configuration and/or run pb-config-refresh-reference to fix that."
+  exit 1
+fi
+
+# Refuse to work if the module directory does not exist
+if [[ ! -d $MODULE_PATH  ]]
+then
+  echo ""
+  echo "*************************************"
+  echo "The module that is supposed to exist at $MODULE_PATH doesn't seem to be at home. Check the address, please."
+  exit 1
+fi
+
+# WHAT'S GOING ON HERE:
+# - identify the files with changes
+# - delete the work directory
+# - create a patches directory
+# - For each of the files with differences
+# -- look for it in the module we're updating
+# -- if found in more than one place, warn and ignore
+# -- If found in the module once, create a patch and apply it to the file found
+
+# Make a list of files with differences, ignoring
+# files that are absent in either directory
+DIFF_OUTPUT_FILES=$(diff -rq --ignore-matching-lines=^uuid: "$CONFIG_REFERENCE_DIR" "$CONFIG_WIP_DIR" | grep -v 'Only in')
+
+rm -rf $WORK_DIR
+mkdir -p $PATCHES_DIR
+
+# If the diff returned an empty result, just notify
+# the user that the config hasn't changed and stop
+# -n string is true if the string is non-empty
+if [[ ! -n $DIFF_OUTPUT_FILES ]]
+then
+  echo "The reference and working configurations are identical. Stopping here, bye!"
+  exit 0
+fi
+
+# IFS: internal field separator. A variable that Bash uses to split the string
+# See https://www.baeldung.com/linux/ifs-shell-variable
+# The gist: for each line, split by space and assign the fragments to the
+# variable names provided, such as ORIGINAL_FILE
+while IFS=" " read -r files ORIGINAL_FILE and NEW_FILE differ; do
+
+  echo ""
+  echo '**********************************************'
+  echo "Processing file $NEW_FILE"
+  echo '**********************************************'
+
+  # Get the filename without the path
+  # Read will split by / (the IFS) and create an array
+  # This is similar to doing str.split('/') in JS or explode('/', $somestring) in PHP
+  IFS="/"
+  read -rA PATH_COMPONENTS <<< "$NEW_FILE"
+  FILENAME=$PATH_COMPONENTS[-1] #the negative index gets us the last element
+
+  # Find the file in the profile files
+  PATH_IN_MODULE=$(find $MODULE_PATH -type f -name "$FILENAME")
+  NUM_FILES_FOUND=$(echo $PATH_IN_MODULE | wc -l)
+
+  # If the file is found more than once in the profile
+  # complain and refuse to accept this nonsense
+  if [[ $NUM_FILES_FOUND -gt 1 ]]
+  then
+    echo "*************************"
+    echo "WARNING: found more than one file location for file"
+    echo "This one will be skipped until it's found in a single location"
+    echo $PATH_IN_MODULE
+
+  elif [[ $NUM_FILES_FOUND -eq 1 ]]
+  then
+    # The path of the patch file that will be created
+    PATCH_FILE="$PATCHES_DIR/${FILENAME}.patch"
+
+    # Write the patch file with the diff between reference and wip file
+    diff -U 2 $ORIGINAL_FILE $NEW_FILE > $PATCH_FILE
+
+    # Apply the patch to the target file in the module
+    patch $PATH_IN_MODULE < $PATCH_FILE
+  fi
+  echo ""
+done <<< "$DIFF_OUTPUT_FILES"
+
+echo "You can clean the .orig files in the module with"
+echo "git clean -fd"
+
+echo "This was SO much nicer than going through those files by hand."
+echo "We should do it again soon. Buh-bye!"
+
+exit 0
