@@ -13,12 +13,14 @@ echo "This command will create fresh reference configuration to be used with pb-
 # - Asks to destroy the backup
 
 ddev export-db > pb-config-refresh-reference.backup.sql.gz
-mv config/sync config/sync-wip
+ddev exec mv config/sync config/sync-wip
+
 ddev pb-site-reinstall
 ddev drush cex --yes
-ddev mutagen sync # make sure that that config files are there before moving them to reference
-mv config/sync config/reference
-mv config/sync-wip config/sync
+
+ddev exec rm -rf config/reference
+ddev exec mv config/sync config/reference
+ddev exec mv config/sync-wip config/sync
 ddev import-db --src=./pb-config-refresh-reference.backup.sql.gz
 
 read "destroybackup?Destroy the backup? [Y/n]"
