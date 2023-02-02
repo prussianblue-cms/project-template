@@ -1,0 +1,33 @@
+#!/bin/zsh
+
+echo ""
+echo "This command will create fresh reference configuration to be used with pb-config-update-modules."
+
+# What this command does:
+# - Makes a backup of the current db state
+# - Moves config/sync to config/sync-wip (temporarily, to avoid changing it when exporting reference config)
+# - Triggers a site reinstall `ddev pb-site-reinstall`
+# - Exports the configuration and moves it to config/reference
+# - Moves the WIP configuration back from config/sync-wip to config/sync
+# - Restores db from the backup
+# - Asks to destroy the backup
+
+ddev export-db > pb-config-refresh-reference.backup.sql.gz
+mv config/sync config/sync-wip
+ddev pb-site-reinstall
+ddev drush cex --yes
+ddev mutagen sync # make sure that that config files are there before moving them to reference
+mv config/sync config/reference
+mv config/sync-wip config/sync
+ddev import-db --src=./pb-config-refresh-reference.backup.sql.gz
+
+read "destroybackup?Destroy the backup? [Y/n]"
+case $destroybackup in
+  [nN][oO]|[nN]|[nN]|"")
+    echo "Ok. Leaving backup at pb-config-refresh-reference.backup.sql.gz"
+    ;;
+  [yY][eE][sS]|[yY])
+    rm pb-config-refresh-reference.backup.sql.gz
+    echo "Removed the backup."
+    ;;
+esac
