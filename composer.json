@@ -24,6 +24,10 @@
         {
             "type": "git",
             "url": "https://github.com/prussianblue-cms/prussianblue-base-theme.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/prussianblue-cms/prussianblue-runtime.git"
         }
     ],
     "require": {
@@ -47,7 +51,8 @@
         "drush/drush": "^11.4",
         "prussianblue-cms/freeform": "^0.1.0",
         "prussianblue-cms/prussianblue_base": "dev-main",
-        "prussianblue-cms/prussianblue_builder": "dev-main"
+        "prussianblue-cms/prussianblue_builder": "dev-main",
+        "prussianblue-cms/prussianblue_runtime": "dev-main"
     },
     "conflict": {
         "drupal/drupal": "*"
