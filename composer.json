@@ -44,7 +44,6 @@
         "drupal/passwordless": "^2.0@alpha",
         "drupal/publishcontent": "^1.6",
         "drupal/responsive_favicons": "^2.0",
-        "drupal/responsive_preview": "^2.0",
         "drupal/smtp": "^1.2",
         "drupal/twig_tweak": "^3.2",
         "drupal/url_embed": "^2.0@alpha",
