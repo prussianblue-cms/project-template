@@ -10,9 +10,9 @@
 * Clone this repository
 * cd into it and run `ddev start`
 * Run `ddev composer install`
-* Run `ddev pb-reinstall-site` to trigger the site installation and installing all the required modules
+* Run `ddev pb-reinstall-site` to trigger the site installation and enable all the required modules
 
-If you want to do development at the template level, you're done.
+If you want to do development at the theme level, you're done.
 
 If you want to do development in the freeform, prussianblue_builder or other repo in the prussianblue-cms repository:
 

@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+ddev drush pb-paragraphs-connect
