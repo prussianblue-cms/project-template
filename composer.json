@@ -27,6 +27,10 @@
         },
         {
             "type": "git",
+            "url": "https://github.com/prussianblue-cms/prussianblue-admin-theme.git"
+        },
+        {
+            "type": "git",
             "url": "https://github.com/prussianblue-cms/prussianblue-runtime.git"
         }
     ],
@@ -49,6 +53,7 @@
         "drupal/url_embed": "^2.0@alpha",
         "drush/drush": "^11.4",
         "prussianblue-cms/freeform": "^0.1.0",
+        "prussianblue-cms/prussianblue_admin": "dev-main",
         "prussianblue-cms/prussianblue_base": "dev-main",
         "prussianblue-cms/prussianblue_builder": "dev-main",
         "prussianblue-cms/prussianblue_runtime": "dev-main"

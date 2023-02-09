@@ -20,3 +20,7 @@ ddev drush en --yes pb_layouts pb_editor_ui
 ddev drush en --yes pb_paragraphs_connector pb_content_type_page
 ddev pb-paragraphs-connect
 ddev drush pmu --yes pb_paragraphs_connector pb_content_type_page
+
+# Enable the pb admin theme
+ddev drush thin --yes pb_admin_theme
+ddev drush cset --yes system.theme admin pb_admin_theme
