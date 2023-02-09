@@ -13,7 +13,7 @@ ddev drush en --yes pb_base_paragraphs pb_content_type_page
 ddev drush pmu --yes pb_base_paragraphs pb_content_type_page
 
 # Enable the runtime modules
-ddev drush en --yes pb_layouts pb_editor_ui
+ddev drush en --yes pb_layouts
 
 # Enable the paragraphs connector and content type modules,
 # run the connector command and disable the modules
