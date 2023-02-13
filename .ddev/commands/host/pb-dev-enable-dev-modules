@@ -1,0 +1,16 @@
+#!/bin/zsh
+
+ON_OFF=$1
+
+case $ON_OFF in
+  [oO][nN]|1|"")
+    echo "Development mode ON."
+    echo " - turn on pb_devel_generate"
+    echo " - turn on mix"
+
+    ddev drush en --yes pb_devel_generate mix
+    ;;
+  [oO][fF][fF]|0)
+    echo "Development mode turned OFF."
+    ;;
+esac
