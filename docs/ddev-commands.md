@@ -17,6 +17,12 @@ An alias of the Drush command pb-paragraphs-connect. Enables the paragraph types
 
 ## PrussianBlue Developer Commands
 
+### pb-dev-enable-dev-modules
+Enables the modules:
+
+- pb_devel_generate
+- mix (disable caches for development)
+
 ### pb-dev-config-update-module [module path]
 Patches the configuration of the given module to match that of the config/sync directory.
 Argument: module path, relative to the project root.
