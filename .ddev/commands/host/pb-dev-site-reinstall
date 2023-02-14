@@ -1,0 +1,6 @@
+#!/bin/bash
+
+ddev pb-site-reinstall
+ddev pb-dev-enable-dev-modules
+ddev pb-dev-starterkit
+ddev pb-uli

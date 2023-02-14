@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Enable the prussianblue_starterkit
+ddev drush thin --yes prussianblue_starterkit
+ddev drush cset --yes system.theme default prussianblue_starterkit

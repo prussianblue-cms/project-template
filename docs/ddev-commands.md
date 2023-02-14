@@ -1,27 +1,46 @@
-# DDEV Commands
+# PrussianBlue CLI
 These commands help perform actions, save typing and aid developer memory.
 
-* **Site Builder** commands are useful to someone working on a website built with PrussianBlue. They are prefixed with `pb-`.
-* **Developer** commands are useful to someone working on PrussianBlue. These are prefixed wth `pb-dev-`.
+Commands are defined in two different ways:
+- As DDEV commands, found in .ddev/commands/host/
+- As Drush commands provided by submodules of prussianblue_builder
 
-## Site Builder Utilities
+## DDEV Site Builder Utilities
+These are useful to someone working on a website built with PrussianBlue. They are prefixed with `pb-`.
 
-## pb-uli
+### pb-uli
 Same as running `ddev drush uli | pbcopy`
 
 ### pb-site-reinstall
 Wipes the database and does a fresh install of the site via `drush site-reinstall`. Does not touch dependencies or code in any way. Does not install prussianblue_builder or its submodules.
 
-### pb-paragraphs-connect
-An alias of the Drush command pb-paragraphs-connect. Enables the paragraph types in content type fields. This command depends on the content type builder modules being enabled, since they implement the hook needed to decide what paragraph ids they allow in their fields.
+## Drush Site Builder Utilities
+Drush commands help site builders interact with content and configuration in a Drupal instance. They are prefixed with `pb:` and can be found by running `ddev drush | grep pb:`.
 
-## PrussianBlue Developer Commands
+### pb:populate-menus
+Creates dummy elements in the main and secondary-navigation menus.
+
+### pb:paragraphs-connect
+Enables the paragraph types in the fields that allow them in nodes. The command and the paragraph discovery API are defined in the `pb_paragraphs_connector` module.
+
+## DDEV PrussianBlue Developer Commands
+These are useful to someone working on the PrussianBlue software. They are prefixed wth `pb-dev-`.
+
+### pb-dev-site-reinstall
+Runs:
+- pb-site-reinstall
+- pb-dev-enable-dev-modules
+- pb-dev-starterkit
+- pb-uli
 
 ### pb-dev-enable-dev-modules
 Enables the modules:
 
 - pb_devel_generate
 - mix (disable caches for development)
+
+### pb-dev-starterkit
+Enables the starterkit theme and sets it as default.
 
 ### pb-dev-config-update-module [module path]
 Patches the configuration of the given module to match that of the config/sync directory.
