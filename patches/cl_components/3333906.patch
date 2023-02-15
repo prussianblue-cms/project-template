@@ -1,0 +1,13 @@
+diff --git a/src/Twig/TwigComponentLoader.php b/src/Twig/TwigComponentLoader.php
+index 05794c38bba3cd9879ac273db421494d380790f2..0b96a60aa67372db831097ac4e9a25e67b1e0541 100644
+--- a/src/Twig/TwigComponentLoader.php
++++ b/src/Twig/TwigComponentLoader.php
+@@ -155,7 +155,7 @@ class TwigComponentLoader implements LoaderInterface {
+   /**
+    * {@inheritdoc}
+    */
+-  public function isFresh($name, $time) {
++  public function isFresh($name, $time): bool {
+     $file_is_fresh = static fn(string $path) => filemtime($path) < $time;
+     try {
+       $component = $this->parseIdAndLoadComponent($name);

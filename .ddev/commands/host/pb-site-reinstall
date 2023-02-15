@@ -3,7 +3,7 @@
 ddev drush site-install --site-name=${DDEV_PROJECT} --account-name=admin --account-mail=web-admin@matrushka.com.mx --site-mail=web-admin@matrushka.com.mx --yes
 
 # Contrib and Core modules
-ddev drush en --yes layout_paragraphs layout_paragraphs_permissions layout_section_classes metatag passwordless publishcontent responsive_favicons smtp url_embed twig_tweak media media_library admin_toolbar locale content_translation config_translation menu_link_attributes
+ddev drush en --yes layout_paragraphs layout_paragraphs_permissions layout_section_classes metatag passwordless publishcontent responsive_favicons smtp url_embed twig_tweak media media_library admin_toolbar locale content_translation config_translation menu_link_attributes cl_components
 
 # Contrib modules we maintain, or PB-specific modules
 ddev drush en --yes freeform

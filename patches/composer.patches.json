@@ -1,4 +1,7 @@
 {
   "patches": {
+    "drupal/cl_components": {
+      "Issue #3333906: Fatal error on install": "patches/cl_components/3333906.patch"
+    }
   }
 }
