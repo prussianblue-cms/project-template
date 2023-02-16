@@ -15,8 +15,15 @@ nfs_mount_enabled: false
 mutagen_enabled: true
 use_dns_when_possible: true
 composer_version: ""
-web_environment: []
+web_environment:
+  - PB_THEME_PATH=web/themes/contrib/prussianblue_base/themes/prussianblue_starterkit/
 nodejs_version: "16"
+
+webimage_extra_packages: ["make"]
+
+hooks:
+  post-start:
+    - exec: "npm install -g sass"
 
 # Key features of ddev's config.yaml:
 
