@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# This command runs on the host machine but the
+# PB_THEME_PATH variable is only set in the web
+# container. This is why we need to fetch it
+# to figure out if it is set
+THEME_PATH=`ddev exec 'echo $PB_THEME_PATH'`
+
+if [ -z ${THEME_PATH+x} ]; then
+  echo "Set the environment variable $PB_THEME_PATH in .ddev/config.yaml to the path of the active theme.";
+  echo " for example: web/themes/custom/project_theme"
+  exit 1
+else
+  echo "Executing make sass-libraries on"
+  echo $THEME_PATH
+
+  if [[ $* == *--watch* ]]; then
+    ddev exec 'cd $PB_THEME_PATH; make sass-libraries-watch'
+  else
+    ddev exec 'cd $PB_THEME_PATH; make sass-libraries'
+  fi
+fi
