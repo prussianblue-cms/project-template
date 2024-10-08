@@ -16,6 +16,6 @@ It's composed of several tools, each of them with a specific role:
 
 * This template, explained above.
 * [The developer module](https://github.com/prussianblue-cms/prussianblue-dev-module). Role: provide configuration for editor tools, fields, paragraph and content types, and any other PrussianBlue configurations. Provide commands for developers to ease configuration and site building (ie: configure SearchAPI, enable paragraph types in fields).
-* [The theme](https://github.com/prussianblue-cms/prussianblue-theme). Role: preprocess fields, paragraphs, layouts and content types. Render the site.
+* [The theme](https://github.com/prussianblue-cms/prussianblue-base-theme). Role: preprocess fields, paragraphs, layouts and content types. Render the site.
 * [Testbed](https://github.com/prussianblue-cms/testbed). Role: allow automated testing of the process of instancing a PB website.
 * [Freeform module](https://github.com/prussianblue-cms/freeform). A Drupal module to make it easier for front-end developers and content editors to collaborate.
